@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useUnit } from "effector-react";
+
+import { useState } from "react";
+import {
+  $counter,
+  $multiplierOrDivisor,
+  buttonClickedMinus,
+  buttonClickedPlus,
+  changeMultiplierOrDivisor,
+} from "./stores";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const count2 = useUnit($counter);
+  const multiplierOrDivisor = useUnit($multiplierOrDivisor);
+  const changeMultiplier = useUnit(changeMultiplierOrDivisor); //
+  const handlePlusClick = useUnit(buttonClickedPlus);
+  const handleMinusClick = useUnit(buttonClickedMinus);
+
+  const handleChangeMultiplier = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newValue = event.target.value; // Извлекаем значение из события
+    changeMultiplier(Number(newValue)); // Приводим значение к числу и передаем в событие Effector
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <p />
+        <button onClick={handlePlusClick}>+</button>
+        {count2}
+        <button onClick={handleMinusClick}>-</button>
+        <p />
+        <input
+          type="number"
+          onChange={handleChangeMultiplier}
+          value={multiplierOrDivisor}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
