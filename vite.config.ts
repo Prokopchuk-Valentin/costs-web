@@ -15,12 +15,14 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@hooks': resolve(__dirname, 'src/hooks'),
-      '@components': resolve(__dirname, 'src/components'),
       '@api': resolve(__dirname, 'src/api'),
+      '@constants': resolve(__dirname, 'src/constants'),
+      '@components': resolve(__dirname, 'src/components'),
       '@context': resolve(__dirname, 'src/context'),
-      '@types': resolve(__dirname, 'src/types'),
+      '@hooks': resolve(__dirname, 'src/hooks'),
+      '@pages': resolve(__dirname, 'src/pages'),
       '@utils': resolve(__dirname, 'src/utils'),
+      '@routes': resolve(__dirname, 'src/routes'),
     },
   },
 });
