@@ -5,24 +5,23 @@ import { $auth } from '@context/auth';
 import { privateRoutes, publicRoutes } from './routes';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/ErrorPage';
+import { AlertProvider } from '@components/Alert';
 
 export function App() {
   const isLoggedIn = useUnit($auth);
 
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
-      <Header />
-      <Router
-        children={
-          <Routes
-            children={
-              isLoggedIn
-                ? privateRoutes.map((e) => e)
-                : publicRoutes.map((e) => e)
-            }
-          />
-        }
-      />
+      <AlertProvider>
+        <Header />
+        <Router>
+          <Routes>
+            {isLoggedIn
+              ? privateRoutes.map((e) => e)
+              : publicRoutes.map((e) => e)}
+          </Routes>
+        </Router>
+      </AlertProvider>
     </ErrorBoundary>
   );
 }
