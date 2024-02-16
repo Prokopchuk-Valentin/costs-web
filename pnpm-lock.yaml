@@ -11,6 +11,9 @@ dependencies:
   effector:
     specifier: ^23.1.0
     version: 23.1.0
+  effector-localstorage:
+    specifier: ^1.0.0
+    version: 1.0.0(effector@23.1.0)
   effector-react:
     specifier: ^23.1.0
     version: 23.1.0(effector@23.1.0)(react@18.2.0)
@@ -26,6 +29,9 @@ dependencies:
   react-error-boundary:
     specifier: ^4.0.12
     version: 4.0.12(react@18.2.0)
+  react-hook-form:
+    specifier: ^7.50.1
+    version: 7.50.1(react@18.2.0)
   react-router-dom:
     specifier: ^6.22.0
     version: 6.22.0(react-dom@18.2.0)(react@18.2.0)
@@ -52,6 +58,9 @@ devDependencies:
   '@vitejs/plugin-react-swc':
     specifier: ^3.5.0
     version: 3.6.0(vite@5.0.12)
+  effector-logger:
+    specifier: ^0.15.0
+    version: 0.15.0(effector@23.1.0)
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -976,6 +985,10 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
+  /detect-node@2.0.4:
+    resolution: {integrity: sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==}
+    dev: true
+
   /dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
@@ -988,6 +1001,24 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /effector-localstorage@1.0.0(effector@23.1.0):
+    resolution: {integrity: sha512-SyJiKCHv05GPcWAC/lupQJWvp2EwY2QRfMuiy/JmuXxw++WUi5ozvxKrPT9ntRndn3AgD3S+LOPPwl7GWi/rzw==}
+    peerDependencies:
+      effector: '>=22.0.0'
+    dependencies:
+      effector: 23.1.0
+    dev: false
+
+  /effector-logger@0.15.0(effector@23.1.0):
+    resolution: {integrity: sha512-Eq/00DPW9N0Tsu0z+VlXQtlR3TdAJQraD56iadFHCBnDU31fBJxmD1wwED/yGFKI5QGMgITGFUXnKHTN1hcrNg==}
+    peerDependencies:
+      effector: ^22.8.8 || ^23.0.0
+    dependencies:
+      detect-node: 2.0.4
+      effector: 23.1.0
+      just-debounce-it: 1.5.0
     dev: true
 
   /effector-react@23.1.0(effector@23.1.0)(react@18.2.0):
@@ -1394,6 +1425,10 @@ packages:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
     dev: true
 
+  /just-debounce-it@1.5.0:
+    resolution: {integrity: sha512-itSWJS5d2DTSCizVJ2Z0Djx/dGmUGfZe7WNfUfVP23+htGcIcPHbEjL4eB8ljojTs/+oYwLexImRRCP0A2WXjA==}
+    dev: true
+
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
@@ -1610,6 +1645,15 @@ packages:
       react: '>=16.13.1'
     dependencies:
       '@babel/runtime': 7.23.9
+      react: 18.2.0
+    dev: false
+
+  /react-hook-form@7.50.1(react@18.2.0):
+    resolution: {integrity: sha512-3PCY82oE0WgeOgUtIr3nYNNtNvqtJ7BZjsbxh6TnYNbXButaD5WpjOmTjdxZfheuHKR68qfeFnEDVYoSSFPMTQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
       react: 18.2.0
     dev: false
 

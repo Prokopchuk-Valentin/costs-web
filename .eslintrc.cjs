@@ -13,6 +13,18 @@ module.exports = {
   rules: {
     'effector/enforce-effect-naming-convention': 'error',
     'effector/enforce-store-naming-convention': 'error',
+    'effector/prefer-useUnit': 'error',
+    'effector/enforce-gate-naming-convention': 'error',
+    'effector/keep-options-order': 'error',
+    'effector/no-ambiguity-target': 'error',
+    'effector/no-duplicate-on': 'error',
+    'effector/no-getState': 'error',
+    'effector/no-patronum-debug': 'warn',
+    'effector/no-unnecessary-duplication': 'warn',
+    'effector/prefer-useUnit': 'error',
+    'effector/prefer-sample-over-forward-with-mapping': 'error',
+    'effector/no-forward': 'error',
+    'effector/no-guard': 'error',
     'react-hooks/exhaustive-deps': ['off'],
     'react-refresh/only-export-components': [
       'warn',

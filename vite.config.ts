@@ -4,6 +4,10 @@ import circleDependency from 'vite-plugin-circular-dependency';
 import { resolve } from 'path';
 
 export default defineConfig({
+  server: {
+    host: '0.0.0.0'
+  },
+  
   plugins: [
     react(),
     circleDependency({
