@@ -79,6 +79,10 @@ sample({
   target: navigateFx,
 });
 
+export const $isLoading = createStore<boolean>(false)
+  .on(logInFx.pending, (_, pending) => pending)
+  .on(registerFx.pending, (_, pending) => pending);
+
 export const $loginStoreResponse = createStore<AuthResponse | object>({}).on(
   logout,
   () => {}
@@ -101,9 +105,15 @@ export const $isAuth = $loginStoreResponse.map(
     'accessToken' in state && 'refreshToken' in state && 'userName' in state
 );
 
-export const $isLoading = createStore<boolean>(false)
-  .on(logInFx.pending, (_, pending) => pending)
-  .on(registerFx.pending, (_, pending) => pending);
+export const $accessToken = $loginStoreResponse.map(
+  (state: AuthResponse | object) =>
+    state && 'accessToken' in state ? state?.accessToken : ''
+);
+
+export const $refreshToken = $loginStoreResponse.map(
+  (state: AuthResponse | object) =>
+    state && 'refreshToken' in state ? state?.refreshToken : ''
+);
 
 export const $userName = $loginStoreResponse.map(
   (state: AuthResponse | object) =>
