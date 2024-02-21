@@ -1,0 +1,14 @@
+.authBtn {
+  position: relative;
+  min-width: 96x;
+  height: 38px;
+}
+
+.form {
+  align-items: flex-end;
+}
+
+.totalPrice {
+  text-align: end;
+  margin-bottom: 10px;
+}

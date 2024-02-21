@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './spinner.module.css';
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
   left: number;
 }
 
-export function Spinner({ top, left }: Props) {
+export const Spinner = React.memo(({ top, left }: Props) => {
   return (
     <div
       style={{ top: `${top}px`, left: `${left}px` }}
@@ -13,4 +14,4 @@ export function Spinner({ top, left }: Props) {
       role="status"
     />
   );
-}
+});

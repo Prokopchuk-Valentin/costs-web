@@ -21,6 +21,28 @@ interface RequestLogReg {
   password: string;
 }
 
+export const $loginStoreResponse = createStore<AuthResponse | object>({});
+
+export const $isAuth = $loginStoreResponse.map(
+  (state) =>
+    'accessToken' in state && 'refreshToken' in state && 'userName' in state
+);
+
+export const $accessToken = $loginStoreResponse.map(
+  (state: AuthResponse | object) =>
+    state && 'accessToken' in state ? state?.accessToken : ''
+);
+
+export const $refreshToken = $loginStoreResponse.map(
+  (state: AuthResponse | object) =>
+    state && 'refreshToken' in state ? state?.refreshToken : ''
+);
+
+export const $userName = $loginStoreResponse.map(
+  (state: AuthResponse | object) =>
+    state && 'userName' in state ? state?.userName : ''
+);
+
 export const logout = createEvent();
 export const setUserName = createEvent<string>();
 export const logInEvent = createEvent<RequestLogReg>();
@@ -44,18 +66,6 @@ export const logInFx = createEffect<
     }),
 });
 
-sample({
-  clock: logInEvent,
-  target: logInFx,
-});
-
-sample({
-  clock: logInFx.doneData,
-  filter: (response: AxiosResponse<AuthResponse>) => response.status === 200,
-  fn: () => ({ path: '/costs' }),
-  target: navigateFx,
-});
-
 export const registerFx = createEffect<
   RequestLogReg,
   AxiosResponse<RegitrationResponse>,
@@ -69,8 +79,10 @@ export const registerFx = createEffect<
 });
 
 sample({
-  clock: registerEvent,
-  target: registerFx,
+  clock: logInFx.doneData,
+  filter: (response: AxiosResponse<AuthResponse>) => response.status === 200,
+  fn: () => ({ path: '/costs' }),
+  target: navigateFx,
 });
 
 sample({
@@ -79,19 +91,16 @@ sample({
   target: navigateFx,
 });
 
-export const $isLoading = createStore<boolean>(false)
-  .on(logInFx.pending, (_, pending) => pending)
-  .on(registerFx.pending, (_, pending) => pending);
-
-export const $loginStoreResponse = createStore<AuthResponse | object>({}).on(
-  logout,
-  () => {}
-);
-
 sample({
   clock: logInFx.doneData,
   filter: (response: AxiosResponse<AuthResponse>) => response.status === 200,
   fn: (response) => response.data,
+  target: $loginStoreResponse,
+});
+
+sample({
+  clock: logout,
+  fn: () => ({}),
   target: $loginStoreResponse,
 });
 
@@ -100,27 +109,13 @@ persist({
   key: 'authData',
 });
 
-export const $isAuth = $loginStoreResponse.map(
-  (state) =>
-    'accessToken' in state && 'refreshToken' in state && 'userName' in state
-);
-
-export const $accessToken = $loginStoreResponse.map(
-  (state: AuthResponse | object) =>
-    state && 'accessToken' in state ? state?.accessToken : ''
-);
-
-export const $refreshToken = $loginStoreResponse.map(
-  (state: AuthResponse | object) =>
-    state && 'refreshToken' in state ? state?.refreshToken : ''
-);
-
-export const $userName = $loginStoreResponse.map(
-  (state: AuthResponse | object) =>
-    state && 'userName' in state ? state?.userName : ''
-);
+export const $isLoading = createStore<boolean>(false)
+  .on(logInFx.pending, (_, pending) => pending)
+  .on(registerFx.pending, (_, pending) => pending);
 
 export const login = {
+  useAccessToken: () => useUnit($accessToken),
+  useRefreshToken: () => useUnit($refreshToken),
   useUserName: () => useUnit($userName),
   useIsAuth: () => useUnit($isAuth),
   useLoginStoreResponse: () => useUnit($loginStoreResponse),
