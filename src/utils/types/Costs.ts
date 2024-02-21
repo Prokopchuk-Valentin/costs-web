@@ -16,6 +16,6 @@ export interface CreateCost extends BaseEffectProps {
 
 export interface GetCosts extends BaseEffectProps {}
 
-export interface RefreshToken extends BaseEffectProps {
+export interface RefreshToken extends Partial<BaseEffectProps> {
   userName: string;
 }

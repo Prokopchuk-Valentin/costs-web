@@ -1,24 +1,28 @@
+import { useEffect } from 'react';
 import Header from './components/Header/Header';
 import { BrowserRouter as Router, Routes } from 'react-router-dom';
-import { useUnit } from 'effector-react';
-import { $auth } from '@context/auth';
+import { login } from '@context/auth';
 import { privateRoutes, publicRoutes } from './routes';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorPage } from '@pages/ErrorPage';
 import { AlertProvider } from '@components/Alert';
+import { attachLogger } from 'effector-logger';
 
 export function App() {
-  const isLoggedIn = useUnit($auth);
+  const isAuth = login.useIsAuth();
+
+  useEffect(() => {
+    const unlog = attachLogger();
+    return () => unlog();
+  }, []);
 
   return (
     <ErrorBoundary fallback={<ErrorPage />}>
       <AlertProvider>
-        <Header />
         <Router>
+          <Header />
           <Routes>
-            {isLoggedIn
-              ? privateRoutes.map((e) => e)
-              : publicRoutes.map((e) => e)}
+            {isAuth ? privateRoutes.map((e) => e) : publicRoutes.map((e) => e)}
           </Routes>
         </Router>
       </AlertProvider>
