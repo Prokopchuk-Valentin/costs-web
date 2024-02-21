@@ -1,11 +1,12 @@
 import React from 'react';
-import { GateCostsPage, costsStore, removeCost } from '@context/costs';
+import { GateCostsPage, removeCost } from '@context/costsApi';
 
 import { Spinner } from '@components/Spinner';
 import { CostsForm } from './CostsForm';
 
 import styles from './costs.module.css';
 import { useGate } from 'effector-react';
+import { costsStore } from '@context/costs';
 
 export const Costs = React.memo(() => {
   const costs = costsStore.useCosts();

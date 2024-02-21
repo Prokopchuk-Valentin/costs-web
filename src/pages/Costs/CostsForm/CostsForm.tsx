@@ -1,13 +1,13 @@
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
-import { costsStore, createCost } from '@context/costs';
+import { createCost } from '@context/costsApi';
 
 import { Spinner } from '@components/Spinner';
 import { Input } from '@components/Input';
 
 import styles from './costs.module.css';
 import React from 'react';
-
+import { costsStore } from '@context/costs';
 
 interface FormCost {
   text: string;
